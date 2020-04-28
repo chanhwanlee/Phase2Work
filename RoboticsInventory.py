@@ -7,11 +7,14 @@ class BaseRecord:
     self.id = id
     
 class Bin(BaseRecord):
-  def __init__(self, id:int, location:str, part_id:str, qty_in_bin:int):
+  num_bins = 0
+  def __init__(self, location:str, part_id:str, qty_in_bin:int):
+    id = num_bins
     super().__init__(id)
     self._location = location
     self._part_id = part_id
     self._qty_in_bin = qty_in_bin
+    num_bins += 1
 
   def get_location(self):
     return self._location
@@ -39,11 +42,14 @@ class Bin(BaseRecord):
     self.updated_at = date.datetime.now()
     
 class Part(BaseRecord):
-  def __init__(self, part_id:int, name:str, quantity:int, bin_id: int):
+  num_parts = 0
+  def __init__(self, name:str, quantity:int, bin_id: int):
+    part_id = num_parts
     super().__init__(part_id)
     self._name = name
     self._quantity = quantity
     self._bin_id = bin_id
+    num_parts +=1
     
   def get_name(self):
     return self._name
@@ -72,9 +78,12 @@ class Part(BaseRecord):
 
     
 class User(BaseRecord):
-  def __init__(self,id: int, email:str):
+  num_users = 0
+  def __init__(self, email:str):
+    id = num_users
     super().__init__(id)
     self._email = email
+    num_users +=1
     
   def get_email(self):
     return self._email
@@ -85,10 +94,13 @@ class User(BaseRecord):
     self.updated_at = date.datetime.now()
 
 class Log(BaseRecord):
-  def __init__(self, log_id: int, part_id:int, quantity:int):
+  num_logs = 0
+  def __init__(self, part_id:int, quantity:int):
+    log_id = num_logs
     super().__init__(log_id)
     self._part_id = part_id
     self._quantity = quantity
+    num_logs +=1
     
   def get_part_id(self):
     return self._part_id
@@ -132,4 +144,4 @@ class InventoryManager:
     name = Part(name, quantity, bin_location)
     for bin in bins:
       if name == part_id:
-        find_bin_by_location(name
+        find_bin_by_location(name)
